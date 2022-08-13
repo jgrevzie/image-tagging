@@ -1,17 +1,14 @@
 import * as functions from "firebase-functions";
 import * as Koa from "koa";
-import {Context} from "koa";
 import * as Router from "@koa/router";
+import { uploadPost } from "./routes/upload-post";
+import { dummyUploadCtx } from "./contexts/mock-upload-ctx";
 
 const app = new Koa();
-// Start writing Firebase Functions
-// https://firebase.google.com/docs/functions/typescript
 
 const router = new Router();
+app.use(router.routes());
 
-router.get("/", async (ctx:Context) => {
-  ctx.body = "Hello World";
-});
-
+router.prefix("/images").post("/", uploadPost(dummyUploadCtx));
 
 export const api = functions.https.onRequest(app.callback());

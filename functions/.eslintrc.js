@@ -27,5 +27,9 @@ module.exports = {
   rules: {
     "quotes": ["error", "double"],
     "import/no-unresolved": 0,
+    "new-cap": ["error", {"capIsNewExceptions": ["Err", "Ok"]}],
+    "max-len": ["error", {code: 110}],
+    "object-curly-spacing": ["off"],
+    "indent": ["off"]
   },
 };

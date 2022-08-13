@@ -17,11 +17,16 @@
   "dependencies": {
     "@koa/router": "^12.0.0",
     "@types/koa__router": "^8.0.11",
+    "busboy": "^1.6.0",
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0",
-    "koa": "^2.13.4"
+    "koa": "^2.13.4",
+    "nanoid": "^3.3.4",
+    "prettier": "^2.7.1",
+    "ts-results": "^3.3.0"
   },
   "devDependencies": {
+    "@types/busboy": "^1.5.0",
     "@types/koa": "^2.13.5",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
@@ -29,6 +34,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-import": "^2.25.4",
     "firebase-functions-test": "^0.2.0",
+    "patch-package": "^6.4.7",
     "typescript": "^4.5.4"
   },
   "private": true
