@@ -14,7 +14,11 @@ export const processForm = async (
     busboy.on("file", async (fieldName, readable, { mimeType, filename }) => {
       const isGoodFile = uploadFileCtx.isGoodFile({ mimeType, fieldName });
       if (isGoodFile.ok) {
-        savePromise = uploadFileCtx.saveFile({ filename, readable });
+        savePromise = uploadFileCtx.saveFile({
+          fileName: filename,
+          readable,
+          mimeType,
+        });
       } else {
         // skip over the file
         readable.resume();

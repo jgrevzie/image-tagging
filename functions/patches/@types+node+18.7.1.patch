@@ -1,0 +1,14 @@
+diff --git a/node_modules/@types/node/http.d.ts b/node_modules/@types/node/http.d.ts
+index cced16d..8598e53 100755
+--- a/node_modules/@types/node/http.d.ts
++++ b/node_modules/@types/node/http.d.ts
+@@ -953,6 +953,9 @@ declare module 'http' {
+          * @since v0.3.0
+          */
+         trailers: NodeJS.Dict<string>;
++
++        body:any;
++        rawBody: any
+         /**
+          * The raw request/response trailer keys and values exactly as they were
+          * received. Only populated at the `'end'` event.

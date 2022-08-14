@@ -20,16 +20,14 @@ module.exports = {
   ignorePatterns: [
     "/lib/**/*", // Ignore built files.
   ],
-  plugins: [
-    "@typescript-eslint",
-    "import",
-  ],
+  plugins: ["@typescript-eslint", "import"],
   rules: {
     "quotes": ["error", "double"],
     "import/no-unresolved": 0,
-    "new-cap": ["error", {"capIsNewExceptions": ["Err", "Ok"]}],
-    "max-len": ["error", {code: 110}],
+    "new-cap": ["error", { capIsNewExceptions: ["Err", "Ok"] }],
+    "max-len": ["error", { code: 110 }],
     "object-curly-spacing": ["off"],
-    "indent": ["off"]
+    "indent": ["off"],
+    "operator-linebreak": ["off"],
   },
 };

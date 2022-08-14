@@ -2,7 +2,7 @@ import { Context } from "koa";
 import { processForm } from "../services/process-form";
 import { UploadFileCtx } from "../types/types";
 
-export const uploadPost =
+export const uploadFile =
   (uploadFileCtx: UploadFileCtx) => async (ctx: Context) =>
     processForm(ctx, uploadFileCtx)
       .then((fileId) => (ctx.body = fileId))
