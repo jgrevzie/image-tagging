@@ -4,10 +4,20 @@ import { DateTime } from "luxon";
 
 export type FileMetadata = {
   id: string;
-  name: string;
+  fileName: string;
   dateUploaded: DateTime;
   tags?: string[];
   mimeType: string;
+  user: User;
+};
+
+export type User = {
+  token: string;
+  userName: string;
+};
+
+export type KoaState = {
+  user: User;
 };
 
 export type UploadFileCtx = {
@@ -15,10 +25,12 @@ export type UploadFileCtx = {
     fileName,
     readable,
     mimeType,
+    user,
   }: {
     fileName: string;
     readable: Readable;
     mimeType: string;
+    user: User;
   }) => Promise<string>;
 
   isGoodFile: ({
@@ -62,15 +74,15 @@ export type SearchCtx = {
 };
 
 export type AuthCtx = {
-  getUserByToken: (token: string) => Promise<string | null>;
+  getUserByToken: (token: string) => Promise<User | null>;
 };
 
 export type AddTokenCtx = {
   saveToken: ({
     token,
-    user,
+    userName,
   }: {
     token: string;
-    user: string;
+    userName: string;
   }) => Promise<void>;
 };

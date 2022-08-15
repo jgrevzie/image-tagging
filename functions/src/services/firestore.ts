@@ -1,6 +1,6 @@
 import * as FirebaseAdmin from "firebase-admin";
 import { firestore } from "firebase-admin";
-import { FileMetadata } from "../types/types";
+import { FileMetadata, User } from "../types/types";
 import { DateTime } from "luxon";
 
 const filePointerCollection = () =>
@@ -13,15 +13,18 @@ export const newDbFilePointer = ({
   id,
   mimeType,
   fileName,
+  user,
 }: {
   id: string;
   mimeType: string;
   fileName: string;
+  user: User;
 }) =>
   filePointerCollection().doc(id).set({
     id,
     mimeType,
     fileName,
+    user,
     uploadedAt: FirebaseAdmin.firestore.FieldValue.serverTimestamp(),
   });
 
@@ -82,7 +85,13 @@ export const getUserByToken = (token: string) =>
     .then((d) => d?.data()?.user)
     .catch((_) => null);
 
-export const saveToken = ({ user, token }: { user: string; token: string }) =>
+export const saveToken = ({
+  userName,
+  token,
+}: {
+  userName: string;
+  token: string;
+}) =>
   userTokenCollection()
     .doc(token)
-    .set({ user }) as Promise<unknown> as Promise<void>;
+    .set({ token, userName }) as Promise<unknown> as Promise<void>;

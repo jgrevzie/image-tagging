@@ -9,7 +9,11 @@ const metadata: FileMetadata = {
   id,
   dateUploaded: DateTime.fromISO("2022-01-01"),
   mimeType: "mime/type",
-  name: "name",
+  fileName: "name",
+  user: {
+    token: "token",
+    userName: "name",
+  },
 };
 
 describe(getFileMetadata, () => {
@@ -19,7 +23,7 @@ describe(getFileMetadata, () => {
     } as unknown as GetFileMetadataCtx;
 
     await expect(() =>
-      getFileMetadata(mockGetFileMetadataCtx)(mockKoaCtx)
+      getFileMetadata(mockGetFileMetadataCtx)(mockKoaCtx, async () => undefined)
     ).rejects.toThrow(/does not exist/);
   });
 
@@ -29,7 +33,10 @@ describe(getFileMetadata, () => {
       getMetadata: () => Promise.resolve(metadata),
     } as unknown as GetFileMetadataCtx;
 
-    await getFileMetadata(mockGetFileMetadataCtx)(mockKoaCtx);
+    await getFileMetadata(mockGetFileMetadataCtx)(
+      mockKoaCtx,
+      async () => undefined
+    );
 
     expect(mockKoaCtx.body).toStrictEqual(metadata);
   });

@@ -3,18 +3,21 @@ import { Context } from "koa";
 import { AddTokenCtx } from "../../types/types";
 
 const token = "1234";
-const user = "user";
+const userName = "user";
 
 describe(addToken, () => {
   test("saves token", async () => {
     const mockAddTokenCtx: AddTokenCtx = { saveToken: jest.fn() };
     const mockKoaCtx = {
-      req: { body: { token, user } },
+      req: { body: { token, user: userName } },
     } as Context;
 
-    await addToken(mockAddTokenCtx)(mockKoaCtx);
+    await addToken(mockAddTokenCtx)(mockKoaCtx, async () => undefined);
 
-    expect(mockAddTokenCtx.saveToken).toHaveBeenCalledWith({ token, user });
+    expect(mockAddTokenCtx.saveToken).toHaveBeenCalledWith({
+      token,
+      userName,
+    });
   });
 });
 
@@ -31,10 +34,10 @@ describe(getParams, () => {
 
   test("extracts user and token", () => {
     const mockCtx = {
-      req: { body: { token, user } },
+      req: { body: { token, user: userName } },
     } as Context;
     const result = getParams(mockCtx);
 
-    expect(result).toStrictEqual({ token, user });
+    expect(result).toStrictEqual({ token, userName });
   });
 });

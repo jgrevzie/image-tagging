@@ -1,3 +1,4 @@
+/* eslint-disable quote-props */
 module.exports = {
   root: true,
   env: {
@@ -19,15 +20,19 @@ module.exports = {
   },
   ignorePatterns: [
     "/lib/**/*", // Ignore built files.
+    "jest.config.js",
   ],
   plugins: ["@typescript-eslint", "import"],
   rules: {
-    "quotes": ["error", "double"],
+    quotes: ["error", "double"],
     "import/no-unresolved": 0,
     "new-cap": ["error", { capIsNewExceptions: ["Err", "Ok"] }],
     "max-len": ["error", { code: 110 }],
     "object-curly-spacing": ["off"],
-    "indent": ["off"],
+    indent: ["off"],
     "operator-linebreak": ["off"],
+    "no-unused": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
   },
 };

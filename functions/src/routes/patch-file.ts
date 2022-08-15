@@ -1,9 +1,10 @@
-import { Context } from "koa";
+import { Context, Middleware } from "koa";
 import { BadRequest } from "http-errors";
-import { PatchFileCtx } from "../types/types";
+import { KoaState, PatchFileCtx } from "../types/types";
 
 export const patchFile =
-  (patchFileCtx: PatchFileCtx) => async (ctx: Context) => {
+  (patchFileCtx: PatchFileCtx): Middleware<KoaState> =>
+  async (ctx: Context) => {
     const params = checkParams(ctx);
     await patchFileCtx.addTagToFilePointer(params);
     ctx.body = "OK";

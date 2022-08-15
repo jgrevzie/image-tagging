@@ -16,7 +16,7 @@ describe(patchFile, () => {
       addTagToFilePointer: jest.fn(),
     };
 
-    await patchFile(mockPatchFileCtx)(mockKoaCtx);
+    await patchFile(mockPatchFileCtx)(mockKoaCtx, async () => undefined);
 
     expect(mockPatchFileCtx.addTagToFilePointer).toBeCalledWith({ id, tag });
   });

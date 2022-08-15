@@ -33,16 +33,18 @@ export const cloudStorageUploadCtx: UploadFileCtx = {
     return Ok(null);
   },
 
-  saveFile: async ({ fileName, readable, mimeType }) => {
+  saveFile: async ({ fileName, readable, mimeType, user }) => {
     // FIXME remove
     log("saving file!!");
     const id = nanoid();
 
     await saveToCloudStorage({ id, mimeType, readable });
-    await newDbFilePointer({ id, mimeType, fileName }).catch(async (err) => {
-      await deleteFromCloudStorage(id);
-      throw err;
-    });
+    await newDbFilePointer({ id, mimeType, fileName, user }).catch(
+      async (err) => {
+        await deleteFromCloudStorage(id);
+        throw err;
+      }
+    );
 
     return id;
   },

@@ -7,7 +7,7 @@ import { UploadFileCtx } from "../../types/types";
 const fileContents = "here is the content of the file";
 
 describe(processForm, () => {
-  test("if file has bad (e.g. bad mime type), then throw", async () => {
+  test("if file is bad (e.g. bad mime type), then throw", async () => {
     const uploadFileCtx = {
       isGoodFile: () => Err("bad mime type"),
     } as unknown as UploadFileCtx;
@@ -16,6 +16,7 @@ describe(processForm, () => {
       /mime/
     );
   });
+
   test("saves file if file is good", async () => {
     const uploadFileCtx: UploadFileCtx = {
       isGoodFile: () => Ok(null),
@@ -42,5 +43,6 @@ const getKoaCtx = (): Context => {
   return {
     headers,
     req: { rawBody: form.getBuffer() },
+    state: { user: { token: "12345", user: "user" } },
   } as unknown as Context;
 };

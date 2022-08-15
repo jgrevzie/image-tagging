@@ -1,14 +1,16 @@
-import { Context } from "koa";
+import { Context, Middleware } from "koa";
 import { BadRequest } from "http-errors";
-import { AddTokenCtx } from "../types/types";
+import { AddTokenCtx, KoaState } from "../types/types";
 
-export const addToken = (addTokenCtx: AddTokenCtx) => async (ctx: Context) => {
-  const { token, user } = getParams(ctx);
+export const addToken =
+  (addTokenCtx: AddTokenCtx): Middleware<KoaState> =>
+  async (ctx: Context) => {
+    const { token, userName } = getParams(ctx);
 
-  await addTokenCtx.saveToken({ token, user });
+    await addTokenCtx.saveToken({ token, userName });
 
-  ctx.body = "OK";
-};
+    ctx.body = "OK";
+  };
 
 export const getParams = (ctx: Context) => {
   const token = ctx.req.body.token;
@@ -16,10 +18,10 @@ export const getParams = (ctx: Context) => {
     throw new BadRequest("expected 'token' in payload");
   }
 
-  const user = ctx.req.body.user;
-  if (!user || typeof user !== "string") {
-    throw new BadRequest("expected 'user' in payload");
+  const userName = ctx.req.body.user;
+  if (!userName || typeof userName !== "string") {
+    throw new BadRequest("expected 'userName' in payload");
   }
 
-  return { token, user };
+  return { token, userName };
 };

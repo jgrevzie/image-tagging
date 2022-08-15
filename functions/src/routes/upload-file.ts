@@ -1,9 +1,10 @@
-import { Context } from "koa";
+import { Context, Middleware } from "koa";
 import { processForm } from "../services/process-form";
-import { UploadFileCtx } from "../types/types";
+import { KoaState, UploadFileCtx } from "../types/types";
 
 export const uploadFile =
-  (uploadFileCtx: UploadFileCtx) => async (ctx: Context) =>
+  (uploadFileCtx: UploadFileCtx): Middleware<KoaState> =>
+  async (ctx: Context) =>
     processForm(ctx, uploadFileCtx)
       .then((fileId) => (ctx.body = fileId))
       .catch((err) => {

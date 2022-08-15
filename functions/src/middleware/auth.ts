@@ -1,22 +1,22 @@
 import { Middleware } from "koa";
 import { Unauthorized } from "http-errors";
-import { AuthCtx } from "../types/types";
+import { AuthCtx, KoaState } from "../types/types";
 
 export const auth =
-  (authCtx: AuthCtx): Middleware =>
+  (authCtx: AuthCtx): Middleware<KoaState> =>
   async (ctx, next) => {
     const token = getToken(ctx.headers.authorization);
 
     const userName =
       token === getMasterToken()
         ? "master user"
-        : await authCtx.getUserByToken(token);
+        : (await authCtx.getUserByToken(token))?.userName;
 
     if (!userName) {
       throw new Unauthorized();
     }
 
-    ctx.state.user = userName;
+    ctx.state.user = { userName, token };
 
     await next();
   };

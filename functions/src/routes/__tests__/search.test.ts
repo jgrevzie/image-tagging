@@ -41,7 +41,7 @@ describe(search, () => {
       search: () => Promise.resolve([id]),
     };
 
-    await search(mockSearchCtx)(koaCtx);
+    await search(mockSearchCtx)(koaCtx, async () => undefined);
     expect(koaCtx.body).toStrictEqual([id]);
   });
 });

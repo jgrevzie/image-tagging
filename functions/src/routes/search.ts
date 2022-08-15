@@ -1,12 +1,14 @@
-import { Context } from "koa";
+import { Context, Middleware } from "koa";
 import { BadRequest } from "http-errors";
 import { DateTime } from "luxon";
-import { SearchCtx, SearchParams } from "../types/types";
+import { KoaState, SearchCtx, SearchParams } from "../types/types";
 
-export const search = (searchCtx: SearchCtx) => async (ctx: Context) => {
-  const params = checkParams(ctx);
-  ctx.body = await searchCtx.search(params);
-};
+export const search =
+  (searchCtx: SearchCtx): Middleware<KoaState> =>
+  async (ctx: Context) => {
+    const params = checkParams(ctx);
+    ctx.body = await searchCtx.search(params);
+  };
 
 export const checkParams = (ctx: Context): SearchParams => {
   const tag = ctx.query?.tag;

@@ -18,6 +18,7 @@ export const processForm = async (
           fileName: filename,
           readable,
           mimeType,
+          user: ctx.state.user,
         });
       } else {
         // skip over the file

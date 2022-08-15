@@ -25,7 +25,9 @@ describe(auth, () => {
     state: {},
   } as unknown as Context;
 
-  const user = "user";
+  const userName = "name";
+  const token = "12345";
+  const user = { userName, token };
 
   beforeEach(() => {
     process.env.MASTER_TOKEN = masterToken;
@@ -52,7 +54,7 @@ describe(auth, () => {
     expect(next).toHaveBeenCalledTimes(1);
   });
 
-  test("will ass user to context if token exists", async () => {
+  test("will add user to context if token exists", async () => {
     const authCtx: AuthCtx = {
       getUserByToken: jest.fn(() => Promise.resolve(user)),
     };
@@ -60,6 +62,6 @@ describe(auth, () => {
 
     await auth(authCtx)(koaCtx, next);
 
-    expect(koaCtx.state.user).toBe(user);
+    expect(koaCtx.state.user).toStrictEqual(user);
   });
 });
